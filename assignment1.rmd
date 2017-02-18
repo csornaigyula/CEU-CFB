@@ -203,9 +203,14 @@ beta <- (p2-p1) / (q2-q1)
 alfa <- (-1)*q2*beta+p2
 e1 <- (p1/q1) * (1/beta) 
 e2 <- (p2/q2) * (1/beta)
-
-lab1 <- paste("E1: ",substring(as.character(e1),1,6))
-lab2 <- paste("E2: ",substring(as.character(e2),1,6))
+lab1 <- paste(
+  paste("(","):\n", sep=paste(as.character(q1),as.character(p1),sep=",")),
+  paste("E1: ",substring(as.character(e1),1,6))
+)
+lab2 <- paste(
+  paste("(","):\n", sep=paste(as.character(q2),as.character(p2),sep=",")),
+  paste("E2: ",substring(as.character(e2),1,6))
+)
 ##How to use equation dynmically?!
 ```
 $$P=340-1*Q$$
@@ -213,7 +218,7 @@ $$P=340-1*Q$$
 
 ```{r demandplot}
 ggplot()+
-  xlim(0, (-1*(alfa/beta) + 10))+
+  xlim(0, (-1*(alfa/beta) + 30))+
   ylim(-2,alfa+10)+
   labs(
     x='Q(antity)',
@@ -227,8 +232,8 @@ ggplot()+
   geom_hline(aes(yintercept=p1),col='palevioletred4',linetype='dotted')+
   geom_vline(aes(xintercept=q2),col='red4',linetype='dotted')+
   geom_hline(aes(yintercept=p2),col='red4',linetype='dotted')+
-  geom_label(aes(x=(q2 - 30) , y=p2+30), label=lab2 ,nudge_x = -1, nudge_y=10, size=5)+
-  geom_label(aes(x=q1 + 30  , y= p2 -30), label=lab1 ,nudge_x = 1, nudge_y=-10, size=5)+
+  geom_label(aes(x=(q2 - 20) , y=p2+20), label=lab2 ,nudge_x = -10, nudge_y=10, size=3)+
+  geom_label(aes(x=q1 + 20  , y= p2 - 20), label=lab1 ,nudge_x = 10, nudge_y=10, size=3)+
   theme_bw()
 
 ```
