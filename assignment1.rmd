@@ -9,7 +9,13 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Assignment1, TASK9
+## Assignment1 details 
+
+
+
+###TASK9: Boris's morining coffee
+
+#### Short summary
 
 Blue line shows the maximum amount of coffe and milk combinations Boris can chose. 
 At the maximum he can buy 18oz milk and 9oz coffe on 1$ coffee price: *MILK = 18-2COFFEE*.
@@ -26,7 +32,7 @@ so
 *1/4COFFEE = 18-6.5COFFE -> 6.75COFFEE = 18 ->* **COFFEE=2.67, MILK=0.67**
 
 
-## Visualization
+#### Visualization
 
 
 ```{r pressure, echo=FALSE}
@@ -38,7 +44,7 @@ ggplot()+
   labs(
     x='Price of coffee',
     y='Price of milk',
-    title='Consumer choices for Boris related to coffee and milk'
+    title='Consumer choices of Boris related to coffee and milk'
   )+
   geom_hline(aes(yintercept=0),col='black')+
   geom_vline(aes(xintercept=0),col='black')+
