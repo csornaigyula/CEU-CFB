@@ -2,20 +2,17 @@
 title: "Consumer and Firm Behavior, Assignment1"
 author: "CSORNAI, Gyula"
 date: "February 18, 2017"
-output: html_document
+output:
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## TASK9: Boris's morining coffee
 
-## Assignment1 details 
-
-
-
-###TASK9: Boris's morining coffee
-
-#### Short summary
+### Short summary
 
 Blue line shows the maximum amount of coffe and milk combinations Boris can chose. 
 At the maximum he can buy 18oz milk and 9oz coffe on 1$ coffee price: *MILK = 18-2COFFEE*.
@@ -62,3 +59,176 @@ ggplot()+
   theme_bw()
 ```
 
+## TASK10: Sam and the oranges - confused...
+
+### Optimal consumption point, original prices
+
+* Sam's max budget: *6$*
+* The maximum cup OJ Sam can buy on 2$/cup price: *3*
+* The maximum cup AJ Sam can buy on 1$/cup price: *6*
+* Equation of budget line: *OJ = 3-0.5AJ*
+* Substitution: *1OJ = 3 AJ*
+* Therefore optimal point would be: *3-0.5AJ = 3 AJ -> 3.5AJ = 3 ->* **AJ=`r 3/3.5 ` , OJ=`r 9/3.5` **
+* But if cup is a unit: **AJ=1, OJ=2** , which is under the budget line (*1$ + 2x2$ = 5$*)
+
+### Optimal consumption point, AJ=2$ prices
+
+* Sam's original bundle, full cups: **AJ=1, OJ=2**
+* This costed *5$* on *original price*
+* This costs *6$* on *new price* (so most possibly this is not the question)
+* Sam's original bundle, part cups: **AJ=0.85 , OJ=2.57**
+* After price change this would cost him *0.85x2 + 2.57x2 =* **6.84**
+* The new budget line is * OJ =3-AJ * 
+* The new optimal point would be *3AJ = 3-AJ -> 4AJ = 3 ->* *AJ=0.75, OJ=2.25*
+* The new optimal point would cost him *2 x (0.75 + 2.25) = * *6$* 
+* This means **(?)** that we need to add him **0.84$** if he wants to afford original consumption, given not full cups, and we do not need to add him anything if he can only drink full cups.
+
+## TASK11: Bruce, bread and butter
+
+### Original optimal choice
+
+* Total budget: **6$**
+* If bagel price is 2$ and butter is 1$, the budget line is *BAGEL = 3 - 0.5BUTTER*
+* Bruce's preference line is *BAGEL=BUTTER*
+* Bruce's optimal bundle is *BUTTER = 3-0.5BUTTER -> 1.5BUTTER = 3 -> * **BUTTER=2, BAGEL=2**
+
+### Income change needed
+
+* If bagel price is 2$ and butter is also 2$ , having 6$ in hand, the budget line is *BAGEL = 3 - BUTTER*
+* Bruce's riginal optimal bundle is *BUTTER=2, BAGEL=2*, this would cost him now *8$*
+* Therefore Bruce would need **2$** to afford the new bundle
+* If he had this 8$, his budget line would be *BAGEL = 4 - BUTTER*, so with this package the bundle is again **BUTTER=2, BAGEL=2**
+
+### Substitution and income effect
+* On this price, Bruce could afford *BAGEL=1.5, BUTTER=1.5* from 6$
+* **Substitution effect**: *BUTTER(original)-BUTTER(original package, increased price) = * **0 package/week**
+* **Income effect**: *BUTTER(original package, increased price)-BUTTER(original budget, increased price) = * **0.5package/week**
+
+## TASK12: Golden Gate toll
+
+### A: Revenue
+
+* If *Q=10000-1000P* and toll fee = *3$*
+* The revenue is *R=PxQ* so (10000-3x1000)x3 = ** 21,000 **
+
+### B: Price elasticity
+
+$$\epsilon = \frac{\frac{P1-P}{P}}{\frac{Q1-Q}{Q}}$$
+
+
+*  Price elasticity of demand is defined as the percentage change in the quantity of a good demanded that results from a 1 percent change in price.
+* Q = 7000, P = 3, P1 = 1.01 * 3 = 3.03, Q1 = 10000-3.03x1000 = 6970
+* Elasticity = ( 0.01/ (-130/7000) ) = **-0.54**
+
+### C: Revenue change
+
+* Could authorities increase their price?
+* **YES**, because price is relatively inelastic, **R1** = P1xQ1 = 6970x3.03 = **21,119.1** > 21,000
+* This is because there is no substitution product.
+
+### D: Impact of Red and White ferry
+
+* The elasticity of the demand would increase
+* In general, the absolute value of price elasticity will rise with the availability of attractive substitutes.
+
+## TASK13: Elasticity of a curve
+
+### Elasticity calculations
+
+#### Original equation 
+
+$$Q = 100 - 0.5P$$
+#### Demand curve 
+
+$$P = 200 - 2Q$$
+
+#### Calculate elasticity
+
+$$\epsilon = \frac{P}{Q} * \frac{1}{slope} = \frac{alfa+beta*Q}{Q} * \frac{1}{beta}$$
+
+#### Unit elasticity point 
+At inique elasticity
+$$-1 = \frac{alfa+beta*Q}{Q} * \frac{1}{beta}$$
+$$Q= -\frac{alfa}{ 2*beta} $$
+
+#### Demand curve chart
+
+```{r elasticityCheck, echo=FALSE}
+alfa<-200
+beta<- -2
+qfp <- function(q){return(alfa+beta*q)}
+qelasticity <- (-1*alfa) / (2*beta)
+
+
+labl <- paste(paste(
+  paste('Unit elasticity point: [',as.character(qelasticity),sep= ""),
+  as.character(qfp(qelasticity)),sep=","),"]",sep=" ")
+ggplot()+
+  xlim(0,110)+
+  ylim(-2,210)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Demand curve for the qiven equation'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = alfa, slope = beta, col='dodgerblue3')+
+  geom_vline(aes(xintercept=qelasticity),col='palevioletred4',linetype='dotted')+
+  geom_hline(aes(yintercept=qfp(qelasticity)),col='palevioletred4',linetype='dotted')+
+  geom_label(aes(x=qelasticity, y=qfp(qelasticity)), label=labl ,nudge_x = 25, nudge_y=15, size=5)+
+  geom_label(aes(x=(qelasticity - 30) , y=(qfp(qelasticity)+30)), label='Elastic' ,nudge_x = 10, nudge_y=30, size=5)+
+  geom_label(aes(x=(qelasticity + 30) , y= (qfp(qelasticity) - 30)), label='Not elastic' ,nudge_x =15, nudge_y=-30, size=5)+
+  theme_bw()
+
+
+```
+
+### Maximize expanditure
+
+The maximum expenditure is expected in the unit elasticity point, because that is the point, where 1% price increase will result 1% quantity loss, which means that the gain is approximately the same as the loss.
+## TASK14: Flights to Budapest
+
+* At price 40$ quantity is 300
+* At price 60$ quantity is 280
+
+### Demand equation
+
+```{r demandeq, echo=FALSE}
+p1<- 40
+p2<- 60
+q1<-300
+q2<-280
+beta <- (p2-p1) / (q2-q1)
+alfa <- (-1)*q2*beta+p2
+e1 <- (p1/q1) * (1/beta) 
+e2 <- (p2/q2) * (1/beta)
+
+lab1 <- paste("E1: ",substring(as.character(e1),1,6))
+lab2 <- paste("E2: ",substring(as.character(e2),1,6))
+##How to use equation dynmically?!
+```
+$$P=340-1*Q$$
+
+
+```{r demandplot}
+ggplot()+
+  xlim(0, (-1*(alfa/beta) + 10))+
+  ylim(-2,alfa+10)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Demand curve for Budapest flights'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = alfa, slope = beta, col='dodgerblue3')+
+  geom_vline(aes(xintercept=q1),col='palevioletred4',linetype='dotted')+
+  geom_hline(aes(yintercept=p1),col='palevioletred4',linetype='dotted')+
+  geom_vline(aes(xintercept=q2),col='red4',linetype='dotted')+
+  geom_hline(aes(yintercept=p2),col='red4',linetype='dotted')+
+  geom_label(aes(x=(q2 - 30) , y=p2+30), label=lab2 ,nudge_x = -1, nudge_y=10, size=5)+
+  geom_label(aes(x=q1 + 30  , y= p2 -30), label=lab1 ,nudge_x = 1, nudge_y=-10, size=5)+
+  theme_bw()
+
+```
