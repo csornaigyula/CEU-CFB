@@ -1,0 +1,58 @@
+---
+title: "Consumer and Firm Behavior, Assignment1"
+author: "CSORNAI, Gyula"
+date: "February 18, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment1, TASK9
+
+Blue line shows the maximum amount of coffe and milk combinations Boris can chose. 
+At the maximum he can buy 18oz milk and 9oz coffe on 1$ coffee price: *MILK = 18-2COFFEE*.
+However he prefers 4 part coffe, 1 part milk ( *MILK=1/4COFFEE*), so on this price his optimal quantities are
+
+*1/4COFFE = 18-2 x COFFEE -> 2.25COFFEE = 18 ->* **COFFEE = 8, MILK=2**
+
+If coffe prices goes from 1$ to 3.25 USD, his budget line changes:
+
+*MILK=18-18/(9/3.25)COFFEE -> MILK=18-6.75COFFEE* 
+
+so
+
+*1/4COFFEE = 18-6.5COFFE -> 6.75COFFEE = 18 ->* **COFFEE=2.67, MILK=0.67**
+
+
+## Visualization
+
+
+```{r pressure, echo=FALSE}
+library(ggplot2)
+icp2 <- (-1)*18/(9/3.25)
+ggplot()+
+  xlim(0,11)+
+  ylim(-4,20)+
+  labs(
+    x='Price of coffee',
+    y='Price of milk',
+    title='Consumer choices for Boris related to coffee and milk'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 18, slope = -2, col='dodgerblue3')+
+  geom_abline(intercept = 18, slope = icp2, col='indianred')+
+  geom_vline(aes(xintercept=8),col='chocolate4',linetype='dashed')+
+  geom_hline(aes(yintercept=2),col='chocolate4',linetype='dashed')+
+  geom_vline(aes(xintercept=2.67),col='palevioletred4',linetype='dotted')+
+  geom_hline(aes(yintercept=0.67),col='palevioletred4',linetype='dotted')+
+  geom_label(aes(x=0, y=18, label='Max milk volume\n for budget=18oz'),nudge_x = 1, nudge_y=1, size=3)+
+  geom_label(aes(x=9, y=0, label='Max coffe volume\n for budget on\n 1$ price = 9oz'),nudge_x = 0, nudge_y=-2, size=3)+
+  geom_label(aes(x=3, y=0, label='Max coffe volume\n for budget on\n 3.25$ price = 9oz'),nudge_x = 0, nudge_y=-2, size=3)+
+  geom_label(aes(x=8, y=2, label='Preference point for budget\non 1$ coffee price: 8oz coffee,\n 2oz milk'),nudge_x = 1.5, nudge_y=2, size=3)+
+  geom_label(aes(x=2.67, y=0.67, label='Preference point for budget\non 3.25$ coffee price:\n 2.67oz coffee, 0.67 oz milk '),nudge_x = 2, nudge_y=3, size=3)+
+  theme_bw()
+```
+
