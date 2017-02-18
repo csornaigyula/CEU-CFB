@@ -138,6 +138,7 @@ $$\epsilon = \frac{\frac{P1-P}{P}}{\frac{Q1-Q}{Q}}$$
 #### Original equation 
 
 $$Q = 100 - 0.5P$$
+
 #### Demand curve 
 
 $$P = 200 - 2Q$$
@@ -147,9 +148,11 @@ $$P = 200 - 2Q$$
 $$\epsilon = \frac{P}{Q} * \frac{1}{slope} = \frac{alfa+beta*Q}{Q} * \frac{1}{beta}$$
 
 #### Unit elasticity point 
+
 At inique elasticity
 $$-1 = \frac{alfa+beta*Q}{Q} * \frac{1}{beta}$$
 $$Q= -\frac{alfa}{ 2*beta} $$
+
 
 #### Demand curve chart
 
@@ -187,6 +190,8 @@ ggplot()+
 ### Maximize expanditure
 
 The maximum expenditure is expected in the unit elasticity point, because that is the point, where 1% price increase will result 1% quantity loss, which means that the gain is approximately the same as the loss.
+
+
 ## TASK14: Flights to Budapest
 
 * At price 40$ quantity is 300
