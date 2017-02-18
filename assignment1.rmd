@@ -216,7 +216,7 @@ lab2 <- paste(
 $$P=340-1*Q$$
 
 
-```{r demandplot}
+```{r demandplot, echo=FALSE}
 ggplot()+
   xlim(0, (-1*(alfa/beta) + 30))+
   ylim(-2,alfa+10)+
