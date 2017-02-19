@@ -9,7 +9,147 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 ```
+## TASK1: Opportunity cost of lending money
+
+* Amount of money lent: *500$*
+* Returned money+goods: R=*505$*
+* Amount of money I had on the savings account with 6% annual interest rate: P=`r 500*1.06`$
+* Opportunity cost (P-R)= **`r 500*1.06 - 505`$**
+
+## TASK2: Dana and the rock concert
+
+* The concert ticket is a **sunk cost**, because at the point of the decision it is already purchased.
+* Before buying the ticket the marginal cost of the party is 0$
+* After buying the ticket the marginal cost of the party is still 0$ because additional parties will not cost this much.
+* If she is rational, she will go to the welcome party, because sunk costs should not be considered in present decisions, only the costs and benefits observed in the present and future. Going to the concert is not a future cost.
+* If she could resell the ticket at any price, her benefit of going to the party would be:
+  + B~party_preference~ > B~concert_preference~ without the ticket, because of preference
+  + B~party~' = B~party_preference~ + p~resell~ > B~comcert_preference~ = B~concert~
+  
+## TASK3: Adding RAM to computer
+
+### With 100$/1GB RAM
+
+|Number of added RAM GB| Total benefit ($) | Average benefit per RAM ($/GB)| Marginal benefit ($/GB) | TOTAL |
+|:--------------------:|:-----------------:|:-----------------------------:|:-----------------------:|:-----:|
+| 0                    |0                  |0                              | 400                     | +300  |
+| 1                    | 400               | 400                           |                         |       |
+|                      |                   |                               | 200                     | +100  |
+| 2                    | 600               | 300                           |                         |       |
+|                      |                   |                               | 100                     | +50   |
+| 3                    | 700               | 233.33                        |                         |       |
+|                      |                   |                               |  50                     | -50   |
+| 4                    | 750               | 187.5                         |                         |       |
+
+Based on the calculation we should purchase 3G memory, but not more.
+
+### With 300$/1GB RAM
+
+In this case we should only buy 1GB only, because in the second case the marginal benefit is smaller than marginal cost.
+
+
+## TASK4: DVD supply
+
+### Supply curve
+
+$$ P= 2Q$$
+
+### Demand curve
+
+$$ P=42-Q $$
+
+### Units traded on different prices
+
+```{r supdim, echo=FALSE}
+alfa1<-0
+alfa2<-42
+beta1<-2
+beta2<- -1
+c <- 42
+
+p1<- 35
+p2 <- 14
+
+suppQty <- function(price){return(as.numeric((price-alfa1)/beta1))}
+demdQty <- function(price){return(as.numeric((price-alfa2)/beta2))}
+eqlbPrc <- function(){return((alfa1*beta2-alfa2*beta1)/(beta2-beta1))}
+
+suppLabl <- function(price){
+  return(
+    paste(
+      paste(
+        "The supply on price = ",
+        "\nis: ",
+        sep=as.character(price)),
+      as.character(suppQty(price))
+    )
+  )
+}
+
+demdLabl <- function(price){
+  return(
+    paste(
+      paste(
+        "The demand on price = ",
+        "\nis: ",
+        sep=as.character(price)),
+      as.character(demdQty(price))
+    )
+  )
+}
+
+
+ggplot()+
+  xlim(0,max(alfa1,alfa2)*1.1)+
+  ylim(-2,max(abs(alfa1/beta1),abs(alfa2/beta2))*1.1)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Demand curve for the qiven equation'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = alfa1, slope = beta1, col='dodgerblue3')+
+  geom_abline(intercept = alfa2, slope = beta2, col='magenta4')+
+  geom_label(aes(x=0, y=alfa2), label='Demand curve' ,nudge_x = 3, nudge_y=3, size=3)+
+  geom_label(aes(x=0 , y=alfa1), label='Supply curve' ,nudge_x = 1, nudge_y=-2, size=3)+
+  geom_hline(aes(yintercept=p1),col='palevioletred4',linetype='dotted')+
+  geom_vline(aes(xintercept=suppQty(p1)),col='palevioletred4',linetype='dotted')+
+  geom_vline(aes(xintercept=demdQty(p1)),col='palevioletred4',linetype='dotted')+
+  geom_label(aes(x=demdQty(p1), y=p1), label=demdLabl(p1) ,nudge_x = 5, nudge_y=5, size=3)+
+  geom_label(aes(x=suppQty(p1), y=p1), label=suppLabl(p1) ,nudge_x = 5, nudge_y=5, size=3)+
+  geom_hline(aes(yintercept=p2),col='indianred',linetype='dotted')+
+  geom_vline(aes(xintercept=suppQty(p2)),col='indianred',linetype='dotted')+
+  geom_vline(aes(xintercept=demdQty(p2)),col='indianred',linetype='dotted')+
+  geom_label(aes(x=demdQty(p2), y=p2), label=demdLabl(p2) ,nudge_x = 5, nudge_y=5, size=3)+
+  geom_label(aes(x=suppQty(p2), y=p2), label=suppLabl(p2) ,nudge_x = 5, nudge_y=-5, size=3)+
+  geom_hline(aes(yintercept=eqlbPrc()),col='seagreen4',linetype='dotted')+
+  geom_vline(aes(xintercept=demdQty(eqlbPrc())),col='seagreen4',linetype='dotted')+
+  geom_label(aes(x=demdQty(eqlbPrc()), y=eqlbPrc()), label=demdLabl(eqlbPrc()) ,nudge_x = 5, nudge_y=5, size=3)+
+  theme_bw()
+
+```
+
+As shown on the graph on price `r as.character(p1)` the supply is **`r suppQty(p1)`** whereas the demand is **`r demdQty(p1)`**, so in this case **`r ifelse(suppQty(p1) > demdQty(p1),"sellers","buyers")`** are unhappy.
+
+From the other side on price `r as.character(p1)` the supply is **`r suppQty(p1)`** whereas the demand is **`r demdQty(p1)`**, so in this case **`r ifelse(suppQty(p1) > demdQty(p1),"sellers","buyers")`** are unhappy.
+
+### Equilibrium point
+
+The equilkibrium point is when 
+$$Q~demand~=Q~supply~$$
+so
+
+$$42-P=\frac{P}{2}$$
+
+which results an equilibrium price =  **`r (alfa1*beta2-alfa2*beta1)/(beta2-beta1) `** 
+
+### Total revenue
+
+The total revenue is at the maximum at equilibrium price, so R = **`r eqlbPrc() * demdQty(eqlbPrc())`**
+
 ## TASK9: Boris's morining coffee
 
 ### Short summary
@@ -33,7 +173,7 @@ so
 
 
 ```{r pressure, echo=FALSE}
-library(ggplot2)
+
 icp2 <- (-1)*18/(9/3.25)
 ggplot()+
   xlim(0,11)+
