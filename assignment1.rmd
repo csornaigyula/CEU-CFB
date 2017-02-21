@@ -2,7 +2,9 @@
 title: "Consumer and Firm Behavior, Assignment1"
 author: "CSORNAI, Gyula"
 date: "February 21, 2017"
-output: pdf_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -311,10 +313,7 @@ ggplot()+
   labs(
     x='Q(antity)',
     y='P(rice)',
-    title='Regulated vs nonregulated price',
-    caption='As petroleum reserves decrease, 
-it becomes more difficult to find and recover crude oil.
-    Price goes up, demand decreases.'
+    title='Regulated vs nonregulated price'
   )+
   geom_hline(aes(yintercept=0),col='black')+
   geom_vline(aes(xintercept=0),col='black')+
