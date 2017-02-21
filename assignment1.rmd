@@ -1,10 +1,8 @@
 ---
 title: "Consumer and Firm Behavior, Assignment1"
 author: "CSORNAI, Gyula"
-date: "February 18, 2017"
-output:
-  html_document: default
-  word_document: default
+date: "February 21, 2017"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +36,7 @@ library(ggplot2)
 | 1                    | 400               | 400                           |                         |       |
 |                      |                   |                               | 200                     | +100  |
 | 2                    | 600               | 300                           |                         |       |
-|                      |                   |                               | 100                     | +50   |
+|                      |                   |                               | 100                     | 0     |
 | 3                    | 700               | 233.33                        |                         |       |
 |                      |                   |                               |  50                     | -50   |
 | 4                    | 750               | 187.5                         |                         |       |
@@ -119,7 +117,7 @@ ggplot()+
   geom_vline(aes(xintercept=suppQty(p1)),col='palevioletred4',linetype='dotted')+
   geom_vline(aes(xintercept=demdQty(p1)),col='palevioletred4',linetype='dotted')+
   geom_label(aes(x=demdQty(p1), y=p1), label=demdLabl(p1) ,nudge_x = 5, nudge_y=5, size=3)+
-  geom_label(aes(x=suppQty(p1), y=p1), label=suppLabl(p1) ,nudge_x = 5, nudge_y=5, size=3)+
+  geom_label(aes(x=suppQty(p1), y=p1), label=suppLabl(p1) ,nudge_x = 10, nudge_y=5, size=3)+
   geom_hline(aes(yintercept=p2),col='indianred',linetype='dotted')+
   geom_vline(aes(xintercept=suppQty(p2)),col='indianred',linetype='dotted')+
   geom_vline(aes(xintercept=demdQty(p2)),col='indianred',linetype='dotted')+
@@ -131,6 +129,7 @@ ggplot()+
   theme_bw()
 
 ```
+
 
 As shown on the graph on price `r as.character(p1)` the supply is **`r suppQty(p1)`** whereas the demand is **`r demdQty(p1)`**, so in this case **`r ifelse(suppQty(p1) > demdQty(p1),"sellers","buyers")`** are unhappy.
 
@@ -149,6 +148,238 @@ which results an equilibrium price =  **`r (alfa1*beta2-alfa2*beta1)/(beta2-beta
 ### Total revenue
 
 The total revenue is at the maximum at equilibrium price, so R = **`r eqlbPrc() * demdQty(eqlbPrc())`**
+
+
+## TASK5: Price and quantity diagrams
+
+
+```{r coil, echo=FALSE, fig.width=4, fig.height=3,out.extra='style="float:left"'}
+ggplot()+
+  xlim(-0.1,5.1)+
+  ylim(-0.1,5.1)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Supply curve shift in case petroleum reserve changes',
+    caption='As petroleum reserves decrease, 
+it becomes more difficult to find and recover crude oil.
+    Price goes up, demand decreases.'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 5, slope = -1, col='dodgerblue3')+
+  geom_abline(intercept = 0, slope = 1, col='indianred')+
+  geom_label(aes(x=0, y=5), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_label(aes(x=0 , y=0), label='Supply curve' ,nudge_x = 1, nudge_y=1, size=3)+
+  geom_abline(intercept = 1, slope = 1, col='red')+
+  geom_label(aes(x=1 , y=0), label='NEW Supply curve' ,nudge_x =0, nudge_y=2, size=3)+
+  theme_bw()
+```
+
+
+```{r airt, echo=FALSE, fig.width=4, fig.height=3,out.extra='style="float:left"'}
+ggplot()+
+  xlim(-0.1,5.1)+
+  ylim(-0.1,5.1)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Demand shift due to worries around air travel',
+    caption='Air travel: Worries about air 
+safety cause travelers to shy away from air travel..
+    Demand goes down, price decreases.'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 5, slope = -1, col='dodgerblue3')+
+  geom_abline(intercept = 0, slope = 1, col='indianred')+
+  geom_label(aes(x=0, y=5), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_label(aes(x=0 , y=0), label='Supply curve' ,nudge_x = 1, nudge_y=1, size=3)+
+  geom_abline(intercept = 4, slope = -1, col='blue')+
+  geom_label(aes(x=0 , y=4), label='NEW Demand curve' ,nudge_x =1, nudge_y=-1, size=3)+
+  theme_bw()
+```
+
+
+```{r railt, echo=FALSE, fig.width=4, fig.height=3, out.extra='style="float:left"'}
+ggplot()+
+  xlim(-0.1,6.1)+
+  ylim(-0.1,6.1)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Demand shift due to worries around air travel 
+    - in railroad travel',
+    caption='Rail travel: Worries about air safety 
+cause travelers to shy away from air travel
+    Demand goes up, price increases'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 5, slope = -1, col='dodgerblue3')+
+  geom_abline(intercept = 0, slope = 1, col='indianred')+
+  geom_label(aes(x=0, y=5), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_label(aes(x=0 , y=0), label='Supply curve' ,nudge_x = 1, nudge_y=1, size=3)+
+  geom_abline(intercept = 6, slope = -1, col='blue')+
+  geom_label(aes(x=0 , y=6), label='NEW Demand curve' ,nudge_x =1, nudge_y=-1, size=3)+
+  theme_bw()
+```
+
+```{r hotel, echo=FALSE, fig.width=4, fig.height=3,out.extra='style="float:left"'}
+ggplot()+
+  xlim(-0.1,5.1)+
+  ylim(-0.1,5.1)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Demand shift in hotel rooms in Hawaii due to worries around air travel',
+    caption='Hotel rooms in Hawaii: 
+Worries about air safety cause travelers to shy away from air travel.
+    Demand goes down, price decreases.'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 5, slope = -1, col='dodgerblue3')+
+  geom_abline(intercept = 0, slope = 1, col='indianred')+
+  geom_label(aes(x=0, y=5), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_label(aes(x=0 , y=0), label='Supply curve' ,nudge_x = 1, nudge_y=1, size=3)+
+  geom_abline(intercept = 4, slope = -1, col='blue')+
+  geom_label(aes(x=0 , y=4), label='NEW Demand curve' ,nudge_x =1, nudge_y=-1, size=3)+
+  theme_bw()
+```
+
+
+```{r milk, echo=FALSE, fig.width=4, fig.height=3}
+ggplot()+
+  xlim(-0.1,5.1)+
+  ylim(-1.1,5.1)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Supply shift in in milk price due to productivity',
+    caption='A genetically engineered hormone enables 
+large milk producers to cut production costs. 
+    Prices go down, demand is more quantity 
+(NOTE: only in case GMO milk is a substitution of bio milk).'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 5, slope = -1, col='dodgerblue3')+
+  geom_abline(intercept = 0, slope = 1, col='indianred')+
+  geom_label(aes(x=0, y=5), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_label(aes(x=0 , y=0), label='Supply curve' ,nudge_x = 0.8, nudge_y=1, size=3)+
+  geom_abline(intercept = 0, slope = 0.8, col='red')+
+  geom_label(aes(x=0 , y=-1), label='NEW Supply curve' ,nudge_x =1, nudge_y=1, size=3)+
+  theme_bw()
+```
+
+
+## TASK6: Handball game
+
+### Equilibrium price
+
+#### Demand
+
+$$ P=1900-\frac{1}{50}*Q$$
+
+#### Supply
+
+$$Q=19000$$
+
+So price is 
+
+$$P=1900-\frac{19000}{50}=1520 $$
+
+### Excess demand
+
+On 50 USD price the quantity demanded would be
+
+$$Q=(1900-50)*50 - 19000 = 73500$$
+
+### Demand jump
+
+If demand jumps the new equation:
+
+$$Q=(2100-50)*50 - 19000 = 73500$$
+
+### Price ceiling
+
+```{r ceil, echo=FALSE}
+ggplot()+
+  xlim(-0.1,19200)+
+  ylim(-0.1,1910)+
+  labs(
+    x='Q(antity)',
+    y='P(rice)',
+    title='Regulated vs nonregulated price',
+    caption='As petroleum reserves decrease, 
+it becomes more difficult to find and recover crude oil.
+    Price goes up, demand decreases.'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 1900, slope = -1/50, col='dodgerblue3')+
+  geom_vline(aes(xintercept=19000),col='indianred')+
+  geom_label(aes(x=1000, y=1800), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_label(aes(x=18000 , y=1000), label='Maximum quantity\nFixed supply' ,nudge_x =0, nudge_y=-0, size=3)+
+  geom_abline(intercept = 0, slope = 0.1, col='red')+
+  geom_hline(aes(yintercept=50),col='blue')+
+  geom_label(aes(x=0 , y=0), label='Typical Supply curve' ,nudge_x =1500, nudge_y=100, size=3)+
+  geom_label(aes(x=0 , y=50), label='Fixed price' ,nudge_x =10000, nudge_y=100, size=3)+
+  theme_bw()
+```
+
+
+
+## TASK7: Marginal price changes
+
+```{r margprc, echo=FALSE}
+ggplot()+
+  xlim(-0.1,4.1)+
+  ylim(-0.1,10.1)+
+  labs(
+    x='Q(antity) - (lb/day)',
+    y='P(rice) - ($/lb)',
+    title='Supply curve changes tue to marginal cost increase',
+    caption='The marginal cost doubled.'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 8, slope = -2, col='dodgerblue3')+
+  geom_abline(intercept = 0, slope = 2, col='indianred')+
+  geom_label(aes(x=0, y=8), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_label(aes(x=0 , y=0), label='Supply curve' ,nudge_x = 1, nudge_y=1, size=3)+
+  geom_abline(intercept = 0, slope = 4, col='red')+
+  geom_label(aes(x=2 , y=8), label='NEW Supply curve' ,nudge_x =0.5, nudge_y=0.5, size=3)+
+  theme_bw()
+```
+
+
+## TASK8: Martha's budget
+
+### Budget constraint for Martha
+
+```{r mathbudg, echo=FALSE}
+ggplot()+
+  xlim(-0.1,65)+
+  ylim(-0.1,155)+
+  labs(
+    x='Malted milk ball quantity - 2.5$/unit',
+    y='Composite good quantity - 1$/unit',
+    title='Budget constraint for Martha'
+  )+
+  geom_hline(aes(yintercept=0),col='black')+
+  geom_vline(aes(xintercept=0),col='black')+
+  geom_abline(intercept = 150, slope = -2.5, col='dodgerblue3')+
+  geom_label(aes(x=0, y=150), label='Martha\'s budget line' ,nudge_x = 10, nudge_y=-10, size=3)+
+  theme_bw()
+```
+
+### Opportunity cost
+
+* Opportunity cost for 1 more unit of composite goods is the number of Milk ball she ascrifices: **`r 1/2.5`**
+* Opportunity cost for 1 more unit of milk ball is the number of composite good she ascrifices: **2.5**
+
 
 ## TASK9: Boris's morining coffee
 
@@ -199,7 +430,7 @@ ggplot()+
   theme_bw()
 ```
 
-## TASK10: Sam and the oranges - confused...
+## TASK10: Sam and the oranges 
 
 ### Optimal consumption point, original prices
 
