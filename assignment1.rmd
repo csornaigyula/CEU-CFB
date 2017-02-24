@@ -9,14 +9,15 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
 library(ggplot2)
 ```
 ## TASK1: Opportunity cost of lending money
 
 * Amount of money lent: *500$*
-* Returned money+goods: R=*505$*
+* Returned mone: R=*500$* , milkshake is irrelevant (especially if the lender is lactose intolerant)
 * Amount of money I had on the savings account with 6% annual interest rate: P=`r 500*1.06`$
-* Opportunity cost (P-R)= **`r 500*1.06 - 505`$**
+* Opportunity cost (P-R)= **`r 500*1.06 - 500`$**
 
 ## TASK2: Dana and the rock concert
 
@@ -302,13 +303,13 @@ $$Q=(1900-50)*50 - 19000 = 73500$$
 
 If demand jumps the new equation:
 
-$$Q=(2100-50)*50 - 19000 = 73500$$
+$$Q=(2100-50)*50 - 19000 = 83500$$
 
 ### Price ceiling
 
 ```{r ceil, echo=FALSE}
 ggplot()+
-  xlim(-0.1,19200)+
+  xlim(-0.1,100000)+
   ylim(-0.1,1910)+
   labs(
     x='Q(antity)',
@@ -319,11 +320,11 @@ ggplot()+
   geom_vline(aes(xintercept=0),col='black')+
   geom_abline(intercept = 1900, slope = -1/50, col='dodgerblue3')+
   geom_vline(aes(xintercept=19000),col='indianred')+
-  geom_label(aes(x=1000, y=1800), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
+  geom_abline(intercept = 0, slope = 0.05, col='red')+
+  geom_label(aes(x=2000, y=1800), label='Demand curve' ,nudge_x = 200, nudge_y=-1, size=3)+
   geom_label(aes(x=18000 , y=1000), label='Maximum quantity\nFixed supply' ,nudge_x =0, nudge_y=-0, size=3)+
-  geom_abline(intercept = 0, slope = 0.1, col='red')+
   geom_hline(aes(yintercept=50),col='blue')+
-  geom_label(aes(x=0 , y=0), label='Typical Supply curve' ,nudge_x =1500, nudge_y=100, size=3)+
+  geom_label(aes(x=0 , y=0), label='Typical Supply curve\n(this is not the case)' ,nudge_x =30000, nudge_y=1500, size=3)+
   geom_label(aes(x=0 , y=50), label='Fixed price' ,nudge_x =10000, nudge_y=100, size=3)+
   theme_bw()
 ```
@@ -348,7 +349,7 @@ ggplot()+
   geom_abline(intercept = 0, slope = 2, col='indianred')+
   geom_label(aes(x=0, y=8), label='Demand curve' ,nudge_x = 1, nudge_y=-1, size=3)+
   geom_label(aes(x=0 , y=0), label='Supply curve' ,nudge_x = 1, nudge_y=1, size=3)+
-  geom_abline(intercept = 0, slope = 4, col='red')+
+  geom_abline(intercept = 2, slope = 2, col='red')+
   geom_label(aes(x=2 , y=8), label='NEW Supply curve' ,nudge_x =0.5, nudge_y=0.5, size=3)+
   theme_bw()
 ```
@@ -409,8 +410,8 @@ ggplot()+
   xlim(0,11)+
   ylim(-4,20)+
   labs(
-    x='Price of coffee',
-    y='Price of milk',
+    x='Quantity of coffee',
+    y='Quantity of milk',
     title='Consumer choices of Boris related to coffee and milk'
   )+
   geom_hline(aes(yintercept=0),col='black')+
